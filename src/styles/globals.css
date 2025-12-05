@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme {
+  /* Custom Wordle colors */
+  --color-wordle-green: #6aaa64;
+  --color-wordle-yellow: #c9b458;
+  --color-wordle-gray: #787c7e;
+  --color-wordle-dark-gray: #3a3a3c;
+  --color-wordle-light-gray: #d3d6da;
+  --color-wordle-border: #d3d6da;
+}
+
+/* Custom component classes */
+@layer components {
+  .tile {
+    @apply w-14 h-14 border-2 border-wordle-light-gray flex items-center justify-center text-3xl font-bold uppercase;
+  }
+  
+  .tile-correct {
+    @apply bg-wordle-green border-wordle-green text-white;
+  }
+  
+  .tile-present {
+    @apply bg-wordle-yellow border-wordle-yellow text-white;
+  }
+  
+  .tile-absent {
+    @apply bg-wordle-gray border-wordle-gray text-white;
+  }
+  
+  .tile-filled {
+    @apply border-wordle-dark-gray;
+  }
+  
+  .key {
+    @apply px-3 py-4 rounded font-bold uppercase bg-wordle-light-gray hover:bg-gray-300 transition-colors cursor-pointer;
+  }
+  
+  .key-correct {
+    @apply bg-wordle-green text-white hover:bg-wordle-green;
+  }
+  
+  .key-present {
+    @apply bg-wordle-yellow text-white hover:bg-wordle-yellow;
+  }
+  
+  .key-absent {
+    @apply bg-wordle-gray text-white hover:bg-wordle-gray;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
