@@ -15,52 +15,13 @@
   --color-wordle-dark-gray: #3a3a3c;
   --color-wordle-light-gray: #d3d6da;
   --color-wordle-border: #d3d6da;
-}
+  --color-wordle-tile-bg: #ffffff;
+  --color-wordle-key-bg: #d3d6da;
 
-@layer components {
-  .tile {
-    @apply w-14 h-14 sm:w-16 sm:h-16 border-2 border-wordle-light-gray 
-           flex items-center justify-center text-2xl sm:text-3xl font-bold 
-           uppercase select-none bg-wordle-tile-bg;
-  }
-  
-  .tile-filled {
-    @apply border-wordle-dark-gray animate-pop;
-  }
-  
-  .tile-correct {
-    @apply bg-wordle-green border-wordle-green text-white;
-  }
-  
-  .tile-present {
-    @apply bg-wordle-yellow border-wordle-yellow text-white;
-  }
-  
-  .tile-absent {
-    @apply bg-wordle-gray border-wordle-gray text-white;
-  }
-  
-  .key {
-    @apply h-14 min-w-[2rem] px-2 sm:px-4 rounded font-bold uppercase 
-           bg-wordle-key-bg hover:opacity-80 transition-opacity 
-           cursor-pointer flex items-center justify-center text-sm sm:text-base;
-  }
-  
-  .key-wide {
-    @apply min-w-[4rem] sm:min-w-[5rem] text-xs sm:text-sm;
-  }
-  
-  .key-correct {
-    @apply bg-wordle-green text-white;
-  }
-  
-  .key-present {
-    @apply bg-wordle-yellow text-white;
-  }
-  
-  .key-absent {
-    @apply bg-wordle-gray text-white;
-  }
+  /* Custom animations */
+  --animate-pop: pop 0.1s ease-in-out;
+  --animate-flip: flip 0.5s ease-in-out;
+  --animate-shake: shake 0.5s ease-in-out;
 }
 
 /* Animations */
@@ -82,18 +43,64 @@
   40%, 80% { transform: translateX(5px); }
 }
 
-@layer utilities {
-  .animate-pop {
-    animation: pop 0.1s ease-in-out;
-  }
-  
-  .animate-flip {
-    animation: flip 0.5s ease-in-out;
-  }
-  
-  .animate-shake {
-    animation: shake 0.5s ease-in-out;
-  }
+/* Tile styles */
+.tile {
+  @apply w-14 h-14 sm:w-16 sm:h-16 border-2 border-wordle-light-gray 
+         flex items-center justify-center text-2xl sm:text-3xl font-bold 
+         uppercase select-none bg-wordle-tile-bg;
+}
+
+.tile-filled {
+  @apply border-wordle-dark-gray;
+  animation: var(--animate-pop);
+}
+
+.tile-correct {
+  @apply bg-wordle-green border-wordle-green text-white;
+}
+
+.tile-present {
+  @apply bg-wordle-yellow border-wordle-yellow text-white;
+}
+
+.tile-absent {
+  @apply bg-wordle-gray border-wordle-gray text-white;
+}
+
+/* Key styles */
+.key {
+  @apply h-14 min-w-[2rem] px-2 sm:px-4 rounded font-bold uppercase 
+         bg-wordle-key-bg hover:opacity-80 transition-opacity 
+         cursor-pointer flex items-center justify-center text-sm sm:text-base;
+}
+
+.key-wide {
+  @apply min-w-[4rem] sm:min-w-[5rem] text-xs sm:text-sm;
+}
+
+.key-correct {
+  @apply bg-wordle-green text-white;
+}
+
+.key-present {
+  @apply bg-wordle-yellow text-white;
+}
+
+.key-absent {
+  @apply bg-wordle-gray text-white;
+}
+
+/* Animation utility classes */
+.animate-pop {
+  animation: var(--animate-pop);
+}
+
+.animate-flip {
+  animation: var(--animate-flip);
+}
+
+.animate-shake {
+  animation: var(--animate-shake);
 }
 
 @theme inline {
