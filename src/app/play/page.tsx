@@ -84,7 +84,7 @@ function GameContent({
   showToast,
 }: GameContentProps) {
   const router = useRouter();
-  const { gameState, isRevealing, isShaking, handleKeyPress } =
+  const { gameState, isRevealing, revealingRow, isShaking, handleKeyPress } =
     useWordle(targetWord);
 
   // Show game over modal when game ends
@@ -144,6 +144,7 @@ function GameContent({
             currentGuess={gameState.currentGuess}
             currentRow={gameState.currentRow}
             isRevealing={isRevealing}
+            revealingRow={revealingRow}
             isShaking={isShaking}
           />
         </div>

@@ -11,12 +11,12 @@
   /* Custom Wordle colors */
   --color-wordle-green: #6aaa64;
   --color-wordle-yellow: #c9b458;
-  --color-wordle-gray: #787c7e;
+  --color-wordle-gray: #3a3a3d;
   --color-wordle-dark-gray: #3a3a3c;
   --color-wordle-light-gray: #d3d6da;
   --color-wordle-border: #d3d6da;
-  --color-wordle-tile-bg: #ffffff;
-  --color-wordle-key-bg: #d3d6da;
+  --color-wordle-tile-bg: #000000;
+  --color-wordle-key-bg: #818384;
 
   /* Custom animations */
   --animate-pop: pop 0.1s ease-in-out;

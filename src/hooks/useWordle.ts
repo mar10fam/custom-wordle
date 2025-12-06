@@ -4,8 +4,6 @@ import { useState, useCallback, useEffect } from "react";
 import {
   GameState,
   GameStatus,
-  TileState,
-  LetterState,
   createInitialGameState,
   evaluateGuess,
   updateUsedKeys,
@@ -17,6 +15,7 @@ import { isValidWord } from "../lib/wordValidation";
 interface UseWordleReturn {
   gameState: GameState;
   isRevealing: boolean;
+  revealingRow: number;
   isShaking: boolean;
   handleKeyPress: (key: string) => void;
   resetGame: (newWord?: string) => void;
@@ -27,6 +26,7 @@ export function useWordle(targetWord: string): UseWordleReturn {
     createInitialGameState(targetWord)
   );
   const [isRevealing, setIsRevealing] = useState(false);
+  const [revealingRow, setRevealingRow] = useState(-1);
   const [isShaking, setIsShaking] = useState(false);
 
   // Reset game when target word changes
@@ -58,12 +58,9 @@ export function useWordle(targetWord: string): UseWordleReturn {
     // Evaluate the guess
     const evaluation = evaluateGuess(currentGuess, targetWord);
 
-    // Update guesses
+    // Update guesses immediately so tiles show the result
     const newGuesses = [...guesses];
     newGuesses[currentRow] = evaluation;
-
-    // Update used keys
-    const newUsedKeys = updateUsedKeys(usedKeys, evaluation);
 
     // Check win/lose
     const isWin = currentGuess.toUpperCase() === targetWord.toUpperCase();
@@ -75,20 +72,29 @@ export function useWordle(targetWord: string): UseWordleReturn {
         ? "lost"
         : "playing";
 
-    // Start reveal animation
+    // Start reveal animation for current row
     setIsRevealing(true);
+    setRevealingRow(currentRow);
 
-    // Update state after animation
+    // Update guesses immediately to show colored tiles
+    setGameState((prev) => ({
+      ...prev,
+      guesses: newGuesses,
+      currentGuess: "",
+    }));
+
+    // After animation, update the rest of state
     setTimeout(() => {
+      const newUsedKeys = updateUsedKeys(usedKeys, evaluation);
+      
       setGameState((prev) => ({
         ...prev,
-        guesses: newGuesses,
         usedKeys: newUsedKeys,
-        currentGuess: "",
         currentRow: isWin || isLoss ? prev.currentRow : prev.currentRow + 1,
         gameStatus: newStatus,
       }));
       setIsRevealing(false);
+      setRevealingRow(-1);
     }, WORD_LENGTH * 300 + 100);
 
     return { success: true };
@@ -144,12 +150,14 @@ export function useWordle(targetWord: string): UseWordleReturn {
     const word = newWord || targetWord;
     setGameState(createInitialGameState(word));
     setIsRevealing(false);
+    setRevealingRow(-1);
     setIsShaking(false);
   }, [targetWord]);
 
   return {
     gameState,
     isRevealing,
+    revealingRow,
     isShaking,
     handleKeyPress,
     resetGame,

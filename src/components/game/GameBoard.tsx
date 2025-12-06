@@ -8,6 +8,7 @@ interface GameBoardProps {
   currentGuess: string;
   currentRow: number;
   isRevealing: boolean;
+  revealingRow: number;
   isShaking: boolean;
 }
 
@@ -16,12 +17,14 @@ export function GameBoard({
   currentGuess,
   currentRow,
   isRevealing,
+  revealingRow,
   isShaking,
 }: GameBoardProps) {
   return (
     <div className="grid grid-rows-6 gap-1.5 p-2.5">
       {guesses.map((row, rowIndex) => {
         const isCurrentRow = rowIndex === currentRow;
+        const isRowRevealing = isRevealing && rowIndex === revealingRow;
 
         return (
           <div
@@ -31,11 +34,12 @@ export function GameBoard({
             }`}
           >
             {row.map((tile, colIndex) => {
-              // Show current guess letters in the active row
-              const letter = isCurrentRow
+              // Show current guess letters in the active row (only if not revealing)
+              const showCurrentGuess = isCurrentRow && !isRowRevealing;
+              const letter = showCurrentGuess
                 ? currentGuess[colIndex]?.toUpperCase() || ""
                 : tile.letter;
-              const state = isCurrentRow
+              const state = showCurrentGuess
                 ? letter
                   ? "tbd"
                   : "empty"
@@ -47,7 +51,7 @@ export function GameBoard({
                   letter={letter}
                   state={state}
                   position={colIndex}
-                  isRevealing={isRevealing && rowIndex === currentRow - 1}
+                  isRevealing={isRowRevealing}
                 />
               );
             })}
