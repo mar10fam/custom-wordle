@@ -21,7 +21,7 @@ export function GameBoard({
   isShaking,
 }: GameBoardProps) {
   return (
-    <div className="grid grid-rows-6 gap-1.5 p-2.5">
+    <div className="grid grid-rows-6 gap-1 xs:gap-1.5 p-1 xs:p-2.5">
       {guesses.map((row, rowIndex) => {
         const isCurrentRow = rowIndex === currentRow;
         const isRowRevealing = isRevealing && rowIndex === revealingRow;
@@ -29,7 +29,7 @@ export function GameBoard({
         return (
           <div
             key={rowIndex}
-            className={`grid grid-cols-5 gap-1.5 ${
+            className={`grid grid-cols-5 gap-1 xs:gap-1.5 ${
               isCurrentRow && isShaking ? "animate-shake" : ""
             }`}
           >

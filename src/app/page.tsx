@@ -56,11 +56,11 @@ export default function HomePage() {
     <div className="min-h-screen flex flex-col">
       <Header onHelpClick={() => setShowHowToPlay(true)} />
 
-      <main className="flex-1 flex flex-col items-center justify-center p-4">
-        <div className="max-w-md w-full space-y-8">
+      <main className="flex-1 flex flex-col items-center justify-center p-3 xs:p-4">
+        <div className="max-w-md w-full space-y-6 xs:space-y-8">
           <div className="text-center space-y-2">
-            <h2 className="text-3xl font-bold">Create Your Puzzle</h2>
-            <p className="text-wordle-gray">
+            <h2 className="text-2xl xs:text-3xl font-bold">Create Your Puzzle</h2>
+            <p className="text-wordle-gray text-sm xs:text-base">
               Enter a 5-letter word for your friends to guess
             </p>
           </div>
@@ -72,9 +72,10 @@ export default function HomePage() {
                 value={word}
                 onChange={(e) => setWord(e.target.value.slice(0, 5))}
                 placeholder="Enter word..."
-                className="w-full px-4 py-3 text-2xl text-center font-bold uppercase tracking-widest border-2 border-wordle-border rounded focus:outline-none focus:border-wordle-dark-gray"
+                className="w-full px-3 xs:px-4 py-2.5 xs:py-3 text-xl xs:text-2xl text-center font-bold uppercase tracking-widest border-2 border-wordle-border rounded focus:outline-none focus:border-wordle-dark-gray"
                 maxLength={5}
                 autoComplete="off"
+                autoCapitalize="characters"
                 spellCheck={false}
               />
             </div>
@@ -97,7 +98,7 @@ export default function HomePage() {
                   type="text"
                   value={generatedLink}
                   readOnly
-                  className="flex-1 px-3 py-2 text-sm border border-wordle-border rounded bg-gray-50 truncate"
+                  className="flex-1 px-3 py-2 text-sm text-black border border-wordle-border rounded bg-gray-50 truncate"
                 />
                 <button
                   onClick={handleCopyLink}

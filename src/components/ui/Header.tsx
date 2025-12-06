@@ -4,11 +4,11 @@ interface HeaderProps {
 
 export function Header({ onHelpClick }: HeaderProps) {
   return (
-    <header className="w-full border-b border-wordle-border">
-      <div className="max-w-lg mx-auto px-4 py-3 flex items-center justify-between">
+    <header className="w-full border-b border-wordle-border flex-shrink-0">
+      <div className="max-w-lg mx-auto px-2 xs:px-4 py-2 xs:py-3 flex items-center justify-between">
         <button
           onClick={onHelpClick}
-          className="p-2 hover:opacity-70 transition-opacity"
+          className="p-2 hover:opacity-70 active:opacity-50 transition-opacity touch-manipulation"
           aria-label="How to play"
         >
           <svg
@@ -28,7 +28,7 @@ export function Header({ onHelpClick }: HeaderProps) {
           </svg>
         </button>
 
-        <h1 className="text-2xl font-bold tracking-wider uppercase">
+        <h1 className="text-lg xs:text-xl sm:text-2xl font-bold tracking-wider uppercase">
           Custom Wordle
         </h1>
 

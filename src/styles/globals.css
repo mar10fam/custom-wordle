@@ -7,6 +7,9 @@
 
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  
+  /* Custom breakpoint for extra small screens */
+  --breakpoint-xs: 375px;
 
   /* Custom Wordle colors */
   --color-wordle-green: #6aaa64;
@@ -45,8 +48,9 @@
 
 /* Tile styles */
 .tile {
-  @apply w-14 h-14 sm:w-16 sm:h-16 border-2 border-wordle-light-gray 
-         flex items-center justify-center text-2xl sm:text-3xl font-bold 
+  @apply w-[3.25rem] h-[3.25rem] xs:w-14 xs:h-14 sm:w-16 sm:h-16 
+         border-2 border-wordle-light-gray 
+         flex items-center justify-center text-[1.75rem] xs:text-2xl sm:text-3xl font-bold 
          uppercase select-none bg-wordle-tile-bg;
 }
 
@@ -69,13 +73,15 @@
 
 /* Key styles */
 .key {
-  @apply h-14 min-w-[2rem] px-2 sm:px-4 rounded font-bold uppercase 
-         bg-wordle-key-bg hover:opacity-80 transition-opacity 
-         cursor-pointer flex items-center justify-center text-sm sm:text-base;
+  @apply h-[3.5rem] min-w-[1.75rem] xs:min-w-[2rem] px-1 xs:px-2 sm:px-3 
+         rounded font-bold uppercase 
+         bg-wordle-key-bg hover:opacity-80 active:opacity-70 transition-opacity 
+         cursor-pointer flex items-center justify-center text-xs xs:text-sm sm:text-base
+         touch-manipulation;
 }
 
 .key-wide {
-  @apply min-w-[4rem] sm:min-w-[5rem] text-xs sm:text-sm;
+  @apply min-w-[3.25rem] xs:min-w-[4rem] sm:min-w-[5rem] text-[0.65rem] xs:text-xs sm:text-sm;
 }
 
 .key-correct {
@@ -117,8 +123,30 @@
   }
 }
 
+html {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent pull-to-refresh on mobile */
+#__next {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Safe area padding for notched phones */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 }
